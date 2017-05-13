@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+
+  "name": "nba-scoreboard",
+  "description": "This extension shows the current NBA scoreboard.",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_popup": "./client/index.html"
+  },
+  "permissions": [
+    "activeTab"
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}

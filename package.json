@@ -1,0 +1,31 @@
+{
+  "name": "nba-extension",
+  "version": "1.0.0",
+  "description": "nba scoreboard chrome extension",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --config ./webpack.config.js -d --watch",
+    "build": "webpack --config ./webpack.config.js -p"
+  },
+  "keywords": [
+    "nba"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "webpack": "^2.3.2"
+  },
+  "devDependencies": {
+    "babel-preset-stage-2": "^6.22.0",
+    "css-loader": "^0.27.3",
+    "style-loader": "^0.16.1"
+  }
+}
