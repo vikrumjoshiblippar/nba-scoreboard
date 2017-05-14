@@ -4,9 +4,10 @@
   "description": "nba scoreboard chrome extension",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --config ./webpack.config.js -d --watch",
-    "build": "webpack --config ./webpack.config.js -p"
+    "dev:server": "webpack --config ./webpack.server.config.js -d --watch",
+    "build:server": "webpack --config ./webpack.server.config.js -p",
+    "dev:client": "webpack --config ./webpack.browser.config.js -d --watch",
+    "build:client": "webpack --config ./webpack.browser.config.js -p"
   },
   "keywords": [
     "nba"
@@ -14,6 +15,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.16.1",
+    "express": "^4.15.2",
     "nba": "^3.2.6",
     "prop-types": "^15.5.8",
     "react": "^15.4.2",

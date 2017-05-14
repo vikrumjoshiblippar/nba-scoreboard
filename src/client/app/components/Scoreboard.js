@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import fetchGames from '../stats';
+import { get } from 'axios';
 import Gamecard from './Gamecard';
 
 class Scoreboard extends Component {
@@ -13,32 +13,33 @@ class Scoreboard extends Component {
 
   requestGameData() {
     const { date } = this.props;
-    const games = fetchGames(date);
+    get('http://192.168.0.8:8080?date=05/14/2017')
+    .then(resp => console.log(resp));
   }
 
   componentWillMount() {
-    this.data = {
-      games: [
-        {
-          gmID: '1',
-          home: 'MIL',
-          away: 'BOS',
-          hmScr: '69',
-          awayScr: '64',
-          period: '3',
-          clock: '03:48',
-          hmLeading: 'T. Snell',
-          hmPts: '33',
-          hmReb: '3',
-          hmAst: '8',
-          awayLeading: 'I. Thomas',
-          awayPts: '32',
-          awayReb: '1',
-          awayAst: '3',
-          boxLink: 'www.nba.com/scoreboard/'
-        }
-      ]
-    };
+    // this.data = {
+    //   games: [
+    //     {
+    //       gmID: '1',
+    //       home: 'MIL',
+    //       away: 'BOS',
+    //       hmScr: '69',
+    //       awayScr: '64',
+    //       period: '3',
+    //       clock: '03:48',
+    //       hmLeading: 'T. Snell',
+    //       hmPts: '33',
+    //       hmReb: '3',
+    //       hmAst: '8',
+    //       awayLeading: 'I. Thomas',
+    //       awayPts: '32',
+    //       awayReb: '1',
+    //       awayAst: '3',
+    //       boxLink: 'www.nba.com/scoreboard/'
+    //     }
+    //   ]
+    // };
 
     this.requestGameData();
   }
@@ -46,12 +47,14 @@ class Scoreboard extends Component {
   render() {
     return (
       <div>
-      {this.data.games.map((game) => {
-        return <Gamecard key={game.gmID} data={game} />;
-      })}
+
       </div>
     );
   }
 }
+
+// {this.data.games.map((game) => {
+//   return <Gamecard key={game.gmID} data={game} />;
+// })}
 
 export default Scoreboard;
