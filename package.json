@@ -14,25 +14,25 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "nba": "^3.2.6",
+    "prop-types": "^15.5.8",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "prop-types": "^15.5.8"
+    "react-dom": "^15.4.2"
   },
   "devDependencies": {
-    "babel-preset-stage-2": "^6.22.0",
+    "babel-core": "^6.24.0",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^6.4.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
     "css-loader": "^0.27.3",
-    "style-loader": "^0.16.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
-    "babel-core": "^6.24.0",
-    "babel-loader": "^6.4.1",
-    "babel-polyfill": "^6.23.0",
-    "babel-preset-es2015": "^6.24.0",
-    "babel-preset-react": "^6.23.0",
-    "webpack": "^2.3.2",
-    "babel-plugin-transform-object-rest-spread": "^6.23.0"    
+    "style-loader": "^0.16.1",
+    "webpack": "^2.4.1"
   }
 }

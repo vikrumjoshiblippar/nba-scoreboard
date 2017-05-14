@@ -6,7 +6,7 @@ var APP_DIR = path.resolve(__dirname, './src/client/app');
 var NODE_MODULES = path.resolve(__dirname, './node_modules');
 
 var config = {
-    entry: [APP_DIR + '/index.jsx'],
+    entry: [APP_DIR + '/index.js'],
     output: {
         path: BUILD_DIR,
         filename: 'bundle.js'
@@ -15,7 +15,7 @@ var config = {
         loaders: [
         {
             test: /(\.jsx)|(\.js)/,
-            include: [APP_DIR, NODE_MODULES],
+            include: [APP_DIR],
             loader: 'babel-loader',
             query: {
                 presets: ['react', 'es2015']
@@ -23,10 +23,9 @@ var config = {
         },
         {
             test: /\.css?/,
-            include: [NODE_MODULES, APP_DIR],
+            include: [APP_DIR],
             loader: 'style-loader!css-loader'      
         }
-
         ]
     }
 };
