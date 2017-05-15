@@ -8,7 +8,7 @@ app.use((req, res, next) => {
   return next();
 });
 
-app.get('/', (req, res) => {
+app.get('/scoreboard', (req, res) => {
   const { date } = req.query;
   fetchGames(date).then(games => res.send(games));
 });

@@ -3,8 +3,16 @@ import { render } from 'react-dom';
 import Scoreboard from './components/Scoreboard';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    const today = new Date();
+    this.state = {
+      date: `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`
+    };
+  }
+
   render() {
-    return <Scoreboard date={'05/07/2017'} />;
+    return <Scoreboard date={this.state.date} />;
   }
 }
 

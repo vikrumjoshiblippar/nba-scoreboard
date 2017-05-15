@@ -7,54 +7,45 @@ class Scoreboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: props.date
+      data: null
     };
   }
 
-  requestGameData() {
-    const { date } = this.props;
-    get('http://192.168.0.8:8080?date=05/14/2017')
-    .then(resp => console.log(resp));
+  componentWillMount() {
+    this.requestGameData()
+    .then((resp) => {
+      this.setState({ data: resp.data });
+    });
   }
 
-  componentWillMount() {
-    // this.data = {
-    //   games: [
-    //     {
-    //       gmID: '1',
-    //       home: 'MIL',
-    //       away: 'BOS',
-    //       hmScr: '69',
-    //       awayScr: '64',
-    //       period: '3',
-    //       clock: '03:48',
-    //       hmLeading: 'T. Snell',
-    //       hmPts: '33',
-    //       hmReb: '3',
-    //       hmAst: '8',
-    //       awayLeading: 'I. Thomas',
-    //       awayPts: '32',
-    //       awayReb: '1',
-    //       awayAst: '3',
-    //       boxLink: 'www.nba.com/scoreboard/'
-    //     }
-    //   ]
-    // };
+  requestGameData() {
+    return new Promise((resolve, reject) => {
+      const { date } = this.props;
+      get(`http://192.168.1.9:8080/scoreboard?date=${date}`)
+      .then(resp => resolve(resp))
+      .catch((e) => {
+        console.log(e);
+        reject();
+      });
+    });
+  }
 
-    this.requestGameData();
+  shouldRenderScoreboard() {
+    if (!this.state.data) {
+      return <span> Loading game data... </span>;
+    } else if (this.state.data.length === 0) {
+      return <span> No games today </span>;
+    }
+    const games = [];
+    this.state.data.map((game) => {
+      games.push(<Gamecard key={game.gameId} data={game} />);
+    });
+    return games;
   }
 
   render() {
-    return (
-      <div>
-
-      </div>
-    );
+    return <div>{this.shouldRenderScoreboard()}</div>;
   }
 }
-
-// {this.data.games.map((game) => {
-//   return <Gamecard key={game.gmID} data={game} />;
-// })}
 
 export default Scoreboard;

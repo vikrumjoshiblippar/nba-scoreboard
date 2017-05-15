@@ -4,9 +4,20 @@ class Gamecard extends Component {
   renderTeamScores() {
     const { data } = this.props;
     const teamScores = [];
-    teamScores.push(teamScore(data.away, data.awayScr));
-    teamScores.push(teamScore(data.home, data.hmScr));
+    teamScores.push(teamScore(data.away.abbreviation, data.away.score));
+    teamScores.push(teamScore(data.home.abbreviation, data.home.score));
     return teamScores;
+  }
+
+  renderClock() {
+    const { data } = this.props;
+    let clockContent = '';
+    if (data.status === 'Final') {
+      clockContent = 'Final';
+    } else {
+      clockContent = `${data.timeRemaining} Q${data.period}`;
+    }
+    return <span style={styles.timeFont}>{clockContent}</span>;
   }
 
   render() {
@@ -17,7 +28,7 @@ class Gamecard extends Component {
           {this.renderTeamScores()}
         </div>
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', flex: 2 }}>
-          <span style={styles.timeFont}>{`${data.clock} Q${data.period}`}</span>
+          {this.renderClock()}
         </div>
       </div>
     );
@@ -28,7 +39,7 @@ const teamScore = (team, score) => {
   return (
     <div key={team} style={styles.score}>
       <div style={styles.teamScore}>
-        <img alt={'teamLogo'} src={`app/static/images/logos/${team}.png`} style={styles.logo} />      
+        <img alt={'teamLogo'} src={`app/static/images/logos/${team}.png`} style={styles.logo} />
         <span style={styles.teamFont}>{team}</span>
       </div>
       <span style={styles.scoreFont}>{score}</span>
@@ -76,7 +87,8 @@ const styles = {
     alignItems: 'center',
     padding: '5px',
     border: '1px solid black',
-    borderRadius: '10px'
+    borderRadius: '10px',
+    marginBottom: '5px'
   },
   timeFont: {
     fontFamily: 'Arial',
