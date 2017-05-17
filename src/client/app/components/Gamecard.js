@@ -14,7 +14,10 @@ class Gamecard extends Component {
     let clockContent = '';
     if (data.status === 'Final') {
       clockContent = 'Final';
-    } else {
+    } else if ((data.period === 0) || (data.period === 2 && data.status === 'Halftime')) {
+      clockContent = data.status;
+    }
+    else {
       clockContent = `${data.timeRemaining} Q${data.period}`;
     }
     return <span style={styles.timeFont}>{clockContent}</span>;
@@ -24,12 +27,9 @@ class Gamecard extends Component {
     const { data } = this.props;
     return (
       <div style={styles.gameCard}>
-        <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-          {this.renderTeamScores()}
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', flex: 2 }}>
-          {this.renderClock()}
-        </div>
+        {teamScore(data.away.abbreviation, data.away.score)}
+        {this.renderClock()}
+        {teamScore(data.home.abbreviation, data.home.score)}
       </div>
     );
   }
@@ -38,30 +38,22 @@ class Gamecard extends Component {
 const teamScore = (team, score) => {
   return (
     <div key={team} style={styles.score}>
-      <div style={styles.teamScore}>
-        <img alt={'teamLogo'} src={`app/static/images/logos/${team}.png`} style={styles.logo} />
-        <span style={styles.teamFont}>{team}</span>
-      </div>
+      <img alt={'teamLogo'} src={`app/static/images/logos/${team}.png`} style={styles.logo} />
       <span style={styles.scoreFont}>{score}</span>
     </div>
   );
 };
 
 const styles = {
-  containerStyle: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
   score: {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'center',
+    width: '250px'
   },
   logo: {
-    height: '40px',
-    width: '40px',
+    height: '80px',
     padding: '0px 10px 0px 10px'
   },
   teamScore: {
@@ -76,24 +68,26 @@ const styles = {
   },
   scoreFont: {
     fontFamily: 'Arial',
-    fontSize: '18px',
-    fontWeight: 'bold'
+    fontSize: '20px',
+    fontWeight: 'bold',
+    paddingTop: '10px'
   },
   gameCard: {
     display: 'flex',
-    flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
-    padding: '5px',
+    padding: '50px 30px 50px 30px',
     border: '1px solid black',
     borderRadius: '10px',
     marginBottom: '5px'
   },
   timeFont: {
     fontFamily: 'Arial',
-    fontSize: '32px',
-    color: 'red'
+    fontSize: '24px',
+    color: 'red',
+    textAlign: 'center',
+    padding: '0px 5px 0px 5px'
   }
 };
 

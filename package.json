@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "apicache": "^0.8.4",
     "axios": "^0.16.1",
     "express": "^4.15.2",
     "nba": "^3.2.6",
