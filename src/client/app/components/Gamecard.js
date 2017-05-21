@@ -25,6 +25,7 @@ class Gamecard extends Component {
 
   render() {
     const { data } = this.props;
+    console.log(data.timeRemaining);
     return (
       <div style={styles.gameCard}>
         {teamScore(data.away.abbreviation, data.away.score)}

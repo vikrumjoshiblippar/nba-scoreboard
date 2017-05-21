@@ -5,7 +5,7 @@ import fetchGames from './stats';
 const app = express();
 const cache = apicache.middleware;
 
-app.use(cache('30 seconds'));
+app.use(cache('1 minute'));
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3000');

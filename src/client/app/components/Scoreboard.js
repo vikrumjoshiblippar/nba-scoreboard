@@ -12,16 +12,22 @@ class Scoreboard extends Component {
   }
 
   componentWillMount() {
+    this.setGameDataState();
+    this.refreshGameData();
+  }
+
+  setGameDataState() {
+    console.log('setting game data');
     this.requestGameData()
     .then((resp) => {
       this.setState({ data: resp.data });
-    });
+    });  
   }
 
   requestGameData() {
     return new Promise((resolve, reject) => {
-      //const { date } = this.props;
-      const date = '03/07/2017';
+      const { date } = this.props;
+      // const date = '03/07/2017';
       get(`http://192.168.1.9:8080/scoreboard?date=${date}`)
       .then(resp => resolve(resp))
       .catch((e) => {
@@ -29,6 +35,11 @@ class Scoreboard extends Component {
         reject();
       });
     });
+  }
+
+  refreshGameData() {
+    this.interval = setInterval(() => this.setGameDataState(), 30000);
+    console.log('interval set');
   }
 
   shouldRenderScoreboard() {
