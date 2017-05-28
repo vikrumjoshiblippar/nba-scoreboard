@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { get } from 'axios';
+import PropTypes from 'prop-types';
 import Gamecard from './Gamecard';
 
 class Scoreboard extends Component {
@@ -7,7 +8,8 @@ class Scoreboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: null
+      data: null,
+      shouldFetch: true
     };
   }
 
@@ -16,19 +18,25 @@ class Scoreboard extends Component {
     this.refreshGameData();
   }
 
+  componentWillReceiveProps() {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+    this.setGameDataState();
+    this.refreshGameData();
+  }
+
   setGameDataState() {
-    console.log('setting game data');
     this.requestGameData()
     .then((resp) => {
       this.setState({ data: resp.data });
-    });  
+    });
   }
 
   requestGameData() {
     return new Promise((resolve, reject) => {
       const { date } = this.props;
-      // const date = '03/07/2017';
-      get(`http://192.168.1.9:8080/scoreboard?date=${date}`)
+      get(`http://192.168.1.5:8080/scoreboard?date=${date}`)
       .then(resp => resolve(resp))
       .catch((e) => {
         console.log(e);
@@ -39,7 +47,6 @@ class Scoreboard extends Component {
 
   refreshGameData() {
     this.interval = setInterval(() => this.setGameDataState(), 30000);
-    console.log('interval set');
   }
 
   shouldRenderScoreboard() {
@@ -59,5 +66,13 @@ class Scoreboard extends Component {
     return <div>{this.shouldRenderScoreboard()}</div>;
   }
 }
+
+Scoreboard.propTypes = {
+  date: PropTypes.string
+};
+
+Scoreboard.defaultProps = {
+  date: '01/01/2017'
+};
 
 export default Scoreboard;

@@ -22,7 +22,7 @@ var config = {
         },
         {
             test: /\.css?/,
-            exclude: /node_modules/,
+            include: /react-date-picker/,
             loader: 'style-loader!css-loader'      
         }
         ]

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Gamecard extends Component {
   renderTeamScores() {
@@ -16,8 +17,7 @@ class Gamecard extends Component {
       clockContent = 'Final';
     } else if ((data.period === 0) || (data.period === 2 && data.status === 'Halftime')) {
       clockContent = data.status;
-    }
-    else {
+    } else {
       clockContent = `${data.timeRemaining} Q${data.period}`;
     }
     return <span style={styles.timeFont}>{clockContent}</span>;
@@ -25,7 +25,6 @@ class Gamecard extends Component {
 
   render() {
     const { data } = this.props;
-    console.log(data.timeRemaining);
     return (
       <div style={styles.gameCard}>
         {teamScore(data.away.abbreviation, data.away.score)}
@@ -43,6 +42,14 @@ const teamScore = (team, score) => {
       <span style={styles.scoreFont}>{score}</span>
     </div>
   );
+};
+
+Gamecard.propTypes = {
+  data: PropTypes.object
+};
+
+Gamecard.defaultProps = {
+  data: {}
 };
 
 const styles = {
