@@ -36,7 +36,7 @@ class Scoreboard extends Component {
   requestGameData() {
     return new Promise((resolve, reject) => {
       const { date } = this.props;
-      get(`http://192.168.1.5:8080/scoreboard?date=${date}`)
+      get(`http://192.168.1.48:8080/scoreboard?date=${date}`)
       .then(resp => resolve(resp))
       .catch((e) => {
         console.log(e);

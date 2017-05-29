@@ -1,21 +1,20 @@
 var webpack = require('webpack');
 var path = require('path');
 
-var BUILD_DIR = path.resolve(__dirname, './src/client/public');
-var APP_DIR = path.resolve(__dirname, './src/client/app');
-var NODE_MODULES = path.resolve(__dirname, './node_modules');
+var CLIENT_APP_DIR = path.resolve(__dirname, './src/client/app');
+var BUILD_DIR = path.resolve(__dirname, './bundle/');
 
 var config = {
-    entry: [APP_DIR + '/index.js'],
+    entry: [CLIENT_APP_DIR + '/index.js'],
     output: {
         path: BUILD_DIR,
-        filename: 'bundle.js'
+        filename: 'client-bundle.js'
     },
     module: {
         loaders: [
         {
             test: /(\.jsx)|(\.js)/,
-            include: [APP_DIR],
+            exclude: /node_modules/,
             loader: 'babel-loader',
             query: {
                 presets: ['react', 'es2015']
@@ -23,7 +22,7 @@ var config = {
         },
         {
             test: /\.css?/,
-            include: [APP_DIR],
+            include: /react-date-picker/,
             loader: 'style-loader!css-loader'      
         }
         ]

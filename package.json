@@ -4,12 +4,9 @@
   "description": "nba scoreboard chrome extension",
   "main": "index.js",
   "scripts": {
-    "dev:server": "webpack --config ./webpack.server.config.js -d --watch",
-    "build:server": "webpack --config ./webpack.server.config.js -p",
-    "dev:client": "webpack --config ./webpack.browser.config.js -d --watch",
-    "build:client": "webpack --config ./webpack.browser.config.js -p",
-    "server:stats": "nodemon ./bundle/server-bundle.js",
-    "server:client": "http-server -p 3000"
+    "dev": "webpack --config ./webpack.config.js -d --watch",
+    "build": "webpack --config ./webpack.config.js -p",
+    "server": "http-server -p 3000"
   },
   "keywords": [
     "nba"
@@ -17,12 +14,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "apicache": "^0.8.4",
     "axios": "^0.16.1",
     "dateformat": "^2.0.0",
-    "express": "^4.15.2",
     "moment": "^2.18.1",
-    "nba": "^3.2.6",
     "prop-types": "^15.5.8",
     "react": "^15.4.2",
     "react-date-picker": "^5.3.28",
