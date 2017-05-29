@@ -3,6 +3,20 @@ import PropTypes from 'prop-types';
 import dateFormat from 'dateformat';
 
 class Gamecard extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      hover: false
+    };
+  }
+
+  getBoxScoreURL() {
+    const { date, data } = this.props;
+    const boxscoreDate = `http://www.nba.com/games/${dateFormat(date, 'yyyymmdd')}/${data.away.abbreviation}${data.home.abbreviation}#/boxscore`;
+    return boxscoreDate;
+  }
+
   renderTeamScores() {
     const { data } = this.props;
     const teamScores = [];
@@ -24,16 +38,16 @@ class Gamecard extends Component {
     return <span style={styles.timeFont}>{clockContent}</span>;
   }
 
-  getBoxScoreURL() {
-    const { date, data } = this.props;
-    const boxscoreDate = `http://www.nba.com/games/${dateFormat(date, 'yyyymmdd')}/${data.away.abbreviation}${data.home.abbreviation}#/boxscore`;
-    return boxscoreDate;
-  }
-
   render() {
     const { data } = this.props;
+    const { gameCard } = styles;
     return (
-      <div style={styles.gameCard} onClick={() => window.location = this.getBoxScoreURL()}>
+      <div
+        style={this.state.hover ? { ...gameCard, border: '3px blue solid', cursor: 'pointer' } : gameCard}
+        onClick={() => window.location = this.getBoxScoreURL()}
+        onMouseEnter={() => this.setState({ hover: true })}
+        onMouseLeave={() => this.setState({ hover: false })}
+      >
         {teamScore(data.away.abbreviation, data.away.score)}
         {this.renderClock()}
         {teamScore(data.home.abbreviation, data.home.score)}
