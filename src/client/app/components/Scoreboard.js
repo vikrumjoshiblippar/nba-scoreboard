@@ -50,6 +50,7 @@ class Scoreboard extends Component {
   }
 
   shouldRenderScoreboard() {
+    const { date } = this.props;
     if (!this.state.data) {
       return <span> Loading game data... </span>;
     } else if (this.state.data.length === 0) {
@@ -57,7 +58,7 @@ class Scoreboard extends Component {
     }
     const games = [];
     this.state.data.map((game) => {
-      games.push(<Gamecard key={game.gameId} data={game} />);
+      games.push(<Gamecard key={game.gameId} data={game} date={date} />);
     });
     return games;
   }

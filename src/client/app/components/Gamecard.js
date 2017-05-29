@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import dateFormat from 'dateformat';
 
 class Gamecard extends Component {
   renderTeamScores() {
@@ -23,10 +24,16 @@ class Gamecard extends Component {
     return <span style={styles.timeFont}>{clockContent}</span>;
   }
 
+  getBoxScoreURL() {
+    const { date, data } = this.props;
+    const boxscoreDate = `http://www.nba.com/games/${dateFormat(date, 'yyyymmdd')}/${data.away.abbreviation}${data.home.abbreviation}#/boxscore`;
+    return boxscoreDate;
+  }
+
   render() {
     const { data } = this.props;
     return (
-      <div style={styles.gameCard}>
+      <div style={styles.gameCard} onClick={() => window.location = this.getBoxScoreURL()}>
         {teamScore(data.away.abbreviation, data.away.score)}
         {this.renderClock()}
         {teamScore(data.home.abbreviation, data.home.score)}
@@ -37,7 +44,7 @@ class Gamecard extends Component {
 
 const teamScore = (team, score) => {
   return (
-    <div key={team} style={styles.score}>
+    <div key={team} style={styles.score} >
       <img alt={'teamLogo'} src={`app/static/images/logos/${team}.png`} style={styles.logo} />
       <span style={styles.scoreFont}>{score}</span>
     </div>
@@ -45,11 +52,13 @@ const teamScore = (team, score) => {
 };
 
 Gamecard.propTypes = {
-  data: PropTypes.object
+  data: PropTypes.object,
+  date: PropTypes.string
 };
 
 Gamecard.defaultProps = {
-  data: {}
+  data: {},
+  date: '01/01/2017'
 };
 
 const styles = {
